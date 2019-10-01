@@ -1,6 +1,5 @@
 package com.smoothstack.UI;
 
-import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 import java.io.IOException;
@@ -12,6 +11,7 @@ import com.smoothstack.service.*;
 	static Scanner input = new Scanner(System.in);
 	static String choice = "";
 	
+	
 	public static void clrscr(){
 	    //Clears Screen in java
 	    try {
@@ -21,9 +21,14 @@ import com.smoothstack.service.*;
 	
 	public class ThreadSleep {
 	
-	    public void threadsleep() throws InterruptedException {
+	    public void threadsleep()  {
 	        long start = System.currentTimeMillis();
-	        Thread.sleep(2000);
+	        try {
+				Thread.sleep(2000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				System.out.println("Error");
+			}
 	        System.out.println("Sleep time in ms = "+(System.currentTimeMillis()-start));
 	    }
 	}
@@ -38,7 +43,49 @@ import com.smoothstack.service.*;
 		return true;
 	}
 
-	public static void AuthorMenu() throws IOException, InterruptedException {
+	// ADMIN/BORROWER/LIBRARIAN INTERFACE --------------------------------
+	public static void MainMenu() {
+	while(choice!="5") {
+		clrscr();
+		System.out.println("\nWelcome to the Library Management System\n");
+		System.out.println("-------------------------------------------\n");
+		System.out.println("1- Librarian");
+		System.out.println("2- Borrower");
+		System.out.println("3- Admin");
+		System.out.println("4- Delete a record \n");
+		System.out.println("Enter your selection(1-4):- \n");
+		
+		choice = input.nextLine();
+		switch(choice)
+		{
+		case "1":
+			//Librarian Menu
+			break;
+		case "2":
+			//Borrower Menu
+			break;
+		case "3":
+			//Admin Menu
+			break;
+		case "4":
+			break;
+		default:
+			clrscr();
+			System.out.println("Invalid choice, please try again\n");
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				System.out.println("Error");
+			}
+			break;
+		}
+	}
+	}
+
+	
+
+	public static void AuthorMenu() {
 		String authname, authid;
 		List<Author> list = null;
 		while(choice!="5") {
@@ -75,7 +122,12 @@ import com.smoothstack.service.*;
 				}
 				else {
 					System.out.println("Please input an Integer");
-					Thread.sleep(1000);
+					try {
+						Thread.sleep(1000);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						System.out.println("error");
+					}
 					return;
 				}
 				break;
@@ -94,7 +146,12 @@ import com.smoothstack.service.*;
 				}
 				else {
 					System.out.println("Please input an Integer");
-					Thread.sleep(1000);
+					try {
+						Thread.sleep(1000);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						System.out.println("error");
+					}
 					return;
 				}
 				break;
@@ -107,11 +164,21 @@ import com.smoothstack.service.*;
 				System.out.println("What is the ID of the Author that you want to edit?");
 				authid = input.nextLine();
 				if(isInteger(authid)) {
-					Service.DeleteAuthor(authid, list, DaoBook.readBook());
+					try {
+						Service.DeleteAuthor(authid, list, DaoBook.readBook());
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						System.out.println("Error");
+					}
 				}
 				else {
 					System.out.println("Please input an Integer");
-					Thread.sleep(1000);
+					try {
+						Thread.sleep(1000);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						System.out.println("Error");
+					}
 					return;
 				}
 				break;
@@ -120,14 +187,19 @@ import com.smoothstack.service.*;
 			default:
 				clrscr();
 				System.out.println("Invalid choice, please try again\n");
-				Thread.sleep(1000);
+				try {
+					Thread.sleep(1000);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					System.out.println("Error");
+				}
 				break;
 
 			}
 		}
 	}
 		
-		public static void PublisherMenu() throws IOException, InterruptedException {
+		public static void PublisherMenu() {
 			String pubName, pubId, pubAddress;
 			List<Publisher> list = null;
 			while(choice!="5") {
@@ -167,7 +239,12 @@ import com.smoothstack.service.*;
 					}
 					else {
 						System.out.println("Please input an Integer");
-						Thread.sleep(1000);
+						try {
+							Thread.sleep(1000);
+						} catch (InterruptedException e) {
+							// TODO Auto-generated catch block
+							System.out.println("Error");
+						}
 						return;
 					}
 					break;
@@ -196,11 +273,21 @@ import com.smoothstack.service.*;
 					System.out.println("What is the ID of the Publisher to delete?\n");
 					pubId = input.nextLine();
 					if(isInteger(pubId)) {
-						Service.DeletePublisher(pubId, list, DaoBook.readBook());
+						try {
+							Service.DeletePublisher(pubId, list, DaoBook.readBook());
+						} catch (IOException e) {
+							// TODO Auto-generated catch block
+							System.out.println("Error");
+						}
 					}
 					else {
 						System.out.println("Please input an Integer");
-						Thread.sleep(1000);
+						try {
+							Thread.sleep(1000);
+						} catch (InterruptedException e) {
+							// TODO Auto-generated catch block
+							System.out.println("Error");
+						}
 						return;
 					}
 					break;
@@ -209,18 +296,28 @@ import com.smoothstack.service.*;
 				default:
 					clrscr();
 					System.out.println("Invalid choice, please try again\n");
-					Thread.sleep(1000);
+					try {
+						Thread.sleep(1000);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						System.out.println("Error");
+					}
 					break;
 				}
 			}
 		}
 		
-			public static void BookMenu() throws IOException, InterruptedException {
+			public static void BookMenu() {
 				String bookName, bookId, authId, pubId;
 				List<Book> list = null;
 				while(choice!="5") {
 					list = null;
-					list = DaoBook.readBook();
+					try {
+						list = DaoBook.readBook();
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						System.out.println("Error");
+					}
 					clrscr();
 					System.out.println("\nWelcome to the Book Menu\n");
 					System.out.println("-------------------------------------------\n");
@@ -252,15 +349,20 @@ import com.smoothstack.service.*;
 						authId = input.nextLine();
 						System.out.println("What is the Publisher ID for the Book?\n");
 						pubId = input.nextLine();
-						//if(isInteger(pubId)) {
+						if(isInteger(pubId)) {
 							Service.CreateBook(bookName, bookId, authId, pubId,list,
 									DaoAuthor.readAuthor(),DaoPublisher.readPublisher());
-//						}
-//						else {
-//							System.out.println("Please input an Integer");
-//							Thread.sleep(1000);
-//							return;
-//						}
+						}
+						else {
+							System.out.println("Please input an Integer");
+							try {
+								Thread.sleep(1000);
+							} catch (InterruptedException e) {
+								// TODO Auto-generated catch block
+								System.out.println("Error");
+							}
+							return;
+						}
 						break;
 					case "3":
 						System.out.println("Book ID\t"+"Book Name\t"+"Author ID\t"+"Publisher ID");
@@ -277,7 +379,12 @@ import com.smoothstack.service.*;
 						}
 						else {
 							System.out.println("Please input an Integer");
-							Thread.sleep(1000);
+							try {
+								Thread.sleep(1000);
+							} catch (InterruptedException e) {
+								// TODO Auto-generated catch block
+								System.out.println("Error");
+							}
 							return;
 						}
 						break;
@@ -294,7 +401,12 @@ import com.smoothstack.service.*;
 						}
 						else {
 							System.out.println("Please input an Integer");
-							Thread.sleep(1000);
+							try {
+								Thread.sleep(1000);
+							} catch (InterruptedException e) {
+								// TODO Auto-generated catch block
+								System.out.println("Error");
+							}
 							return;
 						}
 						break;
@@ -302,13 +414,18 @@ import com.smoothstack.service.*;
 						return;
 					default:
 						System.out.println("Invalid choice, please try again\n");
-						Thread.sleep(1000);
+						try {
+							Thread.sleep(1000);
+						} catch (InterruptedException e) {
+							// TODO Auto-generated catch block
+							System.out.println("Error");
+						}
 						break;
 					}
 				}
 			}
 	
-	public static void main(String[] args) throws IOException, InterruptedException {
+	public static void main(String[] args)  {
 
 		do
 		{
@@ -341,7 +458,12 @@ import com.smoothstack.service.*;
 					return;
 				default:
 					System.out.println("Invalid choice, please try again.....\n");
+				try {
 					Thread.sleep(1250);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					System.out.println("Error");
+				}
 					break;
 			}
 		
